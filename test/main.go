@@ -1,11 +1,42 @@
 package main
-
-func PrintCombN(n int) {
-	
+import "fmt"
+func Atoi(s string) int {
+	if s == "" {
+		return 0
+	}
+	if s[0] == '+' || s[0] == '-' || s[0] >='0' && s[0] <= '9'{
+		startIndex:=0
+		if s[0] == '+' || s[0] == '-' {
+			startIndex = 1
+		}
+		for i:=startIndex; i < len(s); i++{
+			if s[i] < '0' || s[i] > '9' {
+				return 0
+			}
+		}
+		num := 0
+		for i:=startIndex;i<len(s);i++{
+			num = num*10 + int(rune(s[i] - 48))
+			if num < 0 {
+				break
+			}
+		}
+		isNegative:=false
+		if s[0] == '-' {
+			isNegative = true
+			num*=-1
+		}
+		if num > 0 && isNegative == true {
+			return 0
+		} else if num < 0 && isNegative ==false {
+			return 0
+		}
+		return num
+	} else {
+		return 0
+	}
 }
 
 func main() {
-	student.PrintCombN(1)
-	student.PrintCombN(3)
-	student.PrintCombN(9)
+	fmt.Println(Atoi("13456563454455454535440"))
 }
