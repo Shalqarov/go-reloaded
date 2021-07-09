@@ -3,6 +3,9 @@ package student
 import "github.com/01-edu/z01"
 
 func PrintCombN(n int) {
+	if n <= 0 || n >= 10 {
+		return
+	}
 	num := make([]int, n)
 	for i := 0; i < n; i++ {
 		num[i] = i

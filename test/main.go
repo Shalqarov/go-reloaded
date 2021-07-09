@@ -2,6 +2,8 @@ package main
 
 import (
 	"student"
+
+	"github.com/01-edu/z01"
 )
 
 func PrintNbrBase(nbr int, base string) {
@@ -9,7 +11,14 @@ func PrintNbrBase(nbr int, base string) {
 }
 
 func main() {
-	student.PrintCombN(1)
-	student.PrintCombN(3)
-	student.PrintCombN(9)
+	student.PrintNbrBase(125, "0123456789")
+	z01.PrintRune('\n')
+	student.PrintNbrBase(-125, "01")
+	z01.PrintRune('\n')
+	student.PrintNbrBase(125, "0123456789ABCDEF")
+	z01.PrintRune('\n')
+	student.PrintNbrBase(-125, "choumi")
+	z01.PrintRune('\n')
+	student.PrintNbrBase(125, "aa")
+	z01.PrintRune('\n')
 }
