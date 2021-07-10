@@ -6,5 +6,5 @@ import (
 )
 
 func main() {
-	fmt.Println(student.SplitWhiteSpaces(""))
+	fmt.Println(student.SplitWhiteSpaces("                          "))
 }
