@@ -8,7 +8,7 @@ func PrintNbrBase(nbr int, base string) {
 		z01.PrintRune('V')
 		return
 	}
-	dic := make(map[rune]bool, 2)
+	dic := make(map[rune]bool, 0)
 	for _, str := range base {
 		if dic[str] {
 			z01.PrintRune('N')
@@ -41,4 +41,5 @@ func PrintNbrBase(nbr int, base string) {
 	for i := len(res) - 1; i >= 0; i-- {
 		z01.PrintRune(rune(base[res[i]]))
 	}
+	z01.PrintRune('\n')
 }

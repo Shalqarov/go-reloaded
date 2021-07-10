@@ -1,24 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"student"
-
-	"github.com/01-edu/z01"
 )
 
-func PrintNbrBase(nbr int, base string) {
-
-}
-
 func main() {
-	student.PrintNbrBase(125, "0123456789")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(-125, "01")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(125, "0123456789ABCDEF")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(-125, "choumi")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(125, "aa")
-	z01.PrintRune('\n')
+	fmt.Println(student.AtoiBase("125", "0123456789"))
+	fmt.Println(student.AtoiBase("1111101", "01"))
+	fmt.Println(student.AtoiBase("7D", "0123456789ABCDEF"))
+	fmt.Println(student.AtoiBase("uoi", "choumi"))
+	fmt.Println(student.AtoiBase("bbbbbab", "-ab"))
 }
