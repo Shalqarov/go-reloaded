@@ -6,5 +6,6 @@ import (
 )
 
 func main() {
-	fmt.Println(student.SplitWhiteSpaces("                          "))
+	s := "HelloHAhowHAareHAyou?"
+	fmt.Println(student.Split(s, "HA"))
 }
