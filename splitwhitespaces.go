@@ -1,16 +1,10 @@
 package student
 
 func SplitWhiteSpaces(s string) []string {
-	cnt := 0
-	for i := range s {
-		if s[i] == ' ' || s[i] == '\t' || s[i] == '\n' {
-			cnt++
-		}
-	}
 	splitted := make([]string, 0)
 	l := len(s)
 	temp := ""
-	for i := 0; i < l-1; i++ {
+	for i := 0; i < l; i++ {
 		if s[i] != ' ' || s[i] != '\t' || s[i] != '\n' {
 			for j := i; j < l; j++ {
 				if s[j] == ' ' || s[j] == '\t' || s[j] == '\n' {
