@@ -1,35 +1,19 @@
 package student
 
 func Split(s, sep string) []string {
-	checker := false
 	splitted := make([]string, 0)
-	l := len(s)
-	temp := ""
-	for i := 0; i < l; i++ {
-		if s[i] != sep[0] {
-			for j := i; j < l; j++ {
-				if s[j] == sep[0] {
-					for idx := 0; idx < len(sep); idx++ {
-						t := j
-						if s[t] != sep[idx] {
-							checker = false
-							break
-						} else {
-							checker = true
-						}
-					}
-				}
-				if checker {
-					break
-				}
-				temp += string(s[j])
-				i = j
-			}
-			if temp != "" {
-				splitted = append(splitted, temp)
-				temp = ""
-			}
+	lS := len(s)
+	lSep := len(sep)
+	step := 0
+	for i := 0; i+lSep < lS; i++ {
+		if s[i:i+lSep] == sep {
+			splitted = append(splitted, s[step:i])
+			step = i + lSep
+			i += lSep
 		}
+	}
+	if sep != s[step:] {
+		splitted = append(splitted, s[step:])
 	}
 	return splitted
 }
