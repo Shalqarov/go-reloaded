@@ -24,9 +24,9 @@ func Atoi(s string) int {
 			num *= -1
 		}
 		if num > 0 && isNegative == true {
-			return -9223372036854775808
+			return 0
 		} else if num < 0 && isNegative == false {
-			return 9223372036854775807
+			return 0
 		}
 		return num
 	}

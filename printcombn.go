@@ -28,7 +28,6 @@ func PrintCombN(n int) {
 		if num[n-1] >= 10 {
 			continue
 		}
-
 		for i := 0; i < n; i++ {
 			z01.PrintRune(int32(num[i] + 48))
 		}
