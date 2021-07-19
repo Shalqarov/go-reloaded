@@ -17,38 +17,40 @@ func main() {
 		for i := 1; i < argsLen; i++ {
 			str += " " + args[i]
 		}
-		fmt.Println(str)
-		vowels := map[rune]bool{'a': true, 'o': true,
-			'u': true, 'e': true, 'i': true,
-			'A': true, 'O': true, 'U': true,
-			'E': true, 'I': true}
-		rotatevowels := []rune{}
-		idx := []int{}
-		for i, symbol := range str {
-			if _, isHave := vowels[symbol]; isHave {
-				rotatevowels = append(rotatevowels, rune(str[i]))
-				idx = append(idx, i)
+		strLen := len(str)
+		res := make([]rune, strLen)
+		leftvowel := false
+		rightvowel := false
+		for l, r := 0, strLen-1; l < r; {
+			if str[l] == 'a' || str[l] == 'e' || str[l] == 'i' || str[l] == 'o' || str[l] == 'u' {
+				leftvowel = true
+				if rightvowel == true {
+					res[l] = rune(str[r])
+					res[r] = rune(str[l])
+					leftvowel = false
+					rightvowel = false
+					l++
+					r++
+					continue
+				}
 			}
-		}
-		rtLen := len(rotatevowels)
-		for i, j := 0, rtLen-1; i < j; i++ {
-			t := rotatevowels[j]
-			rotatevowels[j] = rotatevowels[i]
-			rotatevowels[i] = t
-			j--
-		}
-		res := ""
-		for i, j := 0, 0; i < rtLen; i++ {
-			if i == idx[j] {
-				res += string(rotatevowels[j])
-				j++
-			} else {
-				res += str
+			if str[r] == 'a' || str[r] == 'e' || str[r] == 'i' || str[r] == 'o' || str[r] == 'u' {
+				rightvowel = true
+				if leftvowel == true {
+					res[l] = rune(str[r])
+					res[r] = rune(str[l])
+					leftvowel = false
+					rightvowel = false
+					l++
+					r++
+					continue
+				}
 			}
+			res[l] = rune(str[l])
+			res[r] = rune(str[r])
+			l++
+			r++
 		}
-		resLen := len(res)
-		for i := 0; i < resLen; i++ {
-			z01.PrintRune(rune(res[i]))
-		}
+		fmt.Println(res)
 	}
 }
