@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/01-edu/z01"
@@ -13,44 +12,37 @@ func main() {
 	if argsLen < 1 {
 		z01.PrintRune('\n')
 	} else {
-		str := args[0]
-		for i := 1; i < argsLen; i++ {
-			str += " " + args[i]
+		str := []rune{}
+		for i := 0; i < argsLen; i++ {
+			for j := 0; j < len(args[i]); j++ {
+				str = append(str, rune(args[i][j]))
+			}
+			str = append(str, ' ')
 		}
 		strLen := len(str)
-		res := make([]rune, strLen)
-		leftvowel := false
-		rightvowel := false
-		for l, r := 0, strLen-1; l < r; {
-			if str[l] == 'a' || str[l] == 'e' || str[l] == 'i' || str[l] == 'o' || str[l] == 'u' {
-				leftvowel = true
-				if rightvowel == true {
-					res[l] = rune(str[r])
-					res[r] = rune(str[l])
-					leftvowel = false
-					rightvowel = false
-					l++
-					r++
-					continue
-				}
+		for L, R := 0, strLen-1; L <= R; {
+			if !isVowel(str[L]) {
+				L++
 			}
-			if str[r] == 'a' || str[r] == 'e' || str[r] == 'i' || str[r] == 'o' || str[r] == 'u' {
-				rightvowel = true
-				if leftvowel == true {
-					res[l] = rune(str[r])
-					res[r] = rune(str[l])
-					leftvowel = false
-					rightvowel = false
-					l++
-					r++
-					continue
-				}
+			if !isVowel(str[R]) {
+				R--
 			}
-			res[l] = rune(str[l])
-			res[r] = rune(str[r])
-			l++
-			r++
+			if isVowel(str[L]) && isVowel(str[R]) {
+				str[L], str[R] = str[R], str[L]
+				L++
+				R--
+			}
 		}
-		fmt.Println(res)
+		for i := 0; i < len(str); i++ {
+			z01.PrintRune(str[i])
+		}
+		z01.PrintRune('\n')
 	}
+}
+
+func isVowel(c rune) bool {
+	if c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U' {
+		return true
+	}
+	return false
 }
