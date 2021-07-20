@@ -8,6 +8,14 @@ func PrintNbrBase(nbr int, base string) {
 		z01.PrintRune('V')
 		return
 	}
+	baseLen := len(base)
+	for i := 0; i < baseLen; i++ {
+		if base[i] == '-' || base[i] == '+' {
+			z01.PrintRune('N')
+			z01.PrintRune('V')
+			return
+		}
+	}
 	dic := make(map[rune]bool, 0)
 	for _, str := range base {
 		if dic[str] {
@@ -17,7 +25,7 @@ func PrintNbrBase(nbr int, base string) {
 		}
 		dic[str] = true
 	}
-	baseLen := len(base)
+
 	isNegative := false
 	if nbr < 0 {
 		isNegative = true

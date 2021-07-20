@@ -5,9 +5,29 @@ import (
 	"student"
 )
 
+func PrintList(l *student.NodeI) {
+	it := l
+	for it != nil {
+		fmt.Print(it.Data, " -> ")
+		it = it.Next
+	}
+	fmt.Print(nil, "\n")
+}
+
+func listPushBack(l *student.NodeI, data int) *student.NodeI {
+	n := &student.NodeI{Data: data}
+
+	if l == nil {
+		return n
+	}
+	iterator := l
+	for iterator.Next != nil {
+		iterator = iterator.Next
+	}
+	iterator.Next = n
+	return l
+}
+
 func main() {
 
-	result := []string{"1", "2", "3", "A", "B", "C", "a", "b", "c"}
-	student.AdvancedSortWordArr(result, student.Compare)
-	fmt.Println(result)
 }

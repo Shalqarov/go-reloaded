@@ -1,6 +1,6 @@
 package student
 
-func atoibase(s string, base string) int {
+func toDecimal(s string, base string) int {
 	if s == "" || len(base) < 2 {
 		return 0
 	}
@@ -19,7 +19,7 @@ func atoibase(s string, base string) int {
 	return num
 }
 
-func printnbr(nbr int, base string) string {
+func fromDecimal(nbr int, base string) string {
 	baseLen := len(base)
 	idx := nbr % baseLen
 	nbr /= baseLen
@@ -45,6 +45,6 @@ func printnbr(nbr int, base string) string {
 }
 
 func ConvertBase(nbr, baseFrom, baseTo string) string {
-	decimal := atoibase(nbr, baseFrom)
-	return printnbr(decimal, baseTo)
+	decimal := toDecimal(nbr, baseFrom)
+	return fromDecimal(decimal, baseTo)
 }
