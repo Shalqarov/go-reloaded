@@ -14,9 +14,10 @@ func main() {
 	student.BTreeInsertData(root, "1")
 	student.BTreeInsertData(root, "7")
 	student.BTreeInsertData(root, "5")
-	student.BTreeInsertData(root, "2")
-	student.BTreeInsertData(root, "3")
-	student.BTreeInsertData(root, "8")
-	student.BTreeApplyByLevel(root, fmt.Println)
-
+	node := student.BTreeSearchItem(root, "4")
+	fmt.Println("Before delete:")
+	student.BTreeApplyInorder(root, fmt.Println)
+	root = student.BTreeDeleteNode(root, node)
+	fmt.Println("After delete:")
+	student.BTreeApplyInorder(root, fmt.Println)
 }
