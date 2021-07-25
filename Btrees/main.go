@@ -10,14 +10,20 @@ import (
 // }
 
 func main() {
-	root := &student.TreeNode{Data: "4"}
-	student.BTreeInsertData(root, "1")
-	student.BTreeInsertData(root, "7")
+	root := &student.TreeNode{Data: "33"}
 	student.BTreeInsertData(root, "5")
-	node := student.BTreeSearchItem(root, "4")
+	student.BTreeInsertData(root, "20")
+	student.BTreeInsertData(root, "31")
+	student.BTreeInsertData(root, "52")
+	student.BTreeInsertData(root, "13")
+	student.BTreeInsertData(root, "11")
+	node := student.BTreeSearchItem(root, "20")
 	fmt.Println("Before delete:")
-	student.BTreeApplyInorder(root, fmt.Println)
+	student.BtreePrint(root)
+	// student.BTreeApplyInorder(root, fmt.Println)
 	root = student.BTreeDeleteNode(root, node)
 	fmt.Println("After delete:")
-	student.BTreeApplyInorder(root, fmt.Println)
+	student.BtreePrint(root)
+
+	// student.BTreeApplyInorder(root, fmt.Println)
 }
