@@ -16,7 +16,7 @@ func Atoi(s string) int {
 		}
 		num := 0
 		for i := startIndex; i < len(s); i++ {
-			num = num*10 + int(rune(s[i]-48))
+			num = num*10 + int(s[i]-48)
 		}
 		isNegative := false
 		if s[0] == '-' {
