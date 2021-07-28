@@ -6,27 +6,27 @@ import (
 )
 
 func main() {
-	var link *student.NodeI
+	// var link *student.NodeI
 
-	link = listPushBack(link, 0)
-	link = listPushBack(link, 1)
-	link = listPushBack(link, 2)
-	link = listPushBack(link, 3)
-	link = listPushBack(link, 4)
-	link = listPushBack(link, 5)
-	link = listPushBack(link, 24)
-	link = listPushBack(link, 25)
-	link = listPushBack(link, 54)
-	PrintList(link)
+	// link = listPushBack(link, 0)
+	// link = listPushBack(link, 1)
+	// link = listPushBack(link, 2)
+	// link = listPushBack(link, 3)
+	// link = listPushBack(link, 4)
+	// link = listPushBack(link, 5)
+	// link = listPushBack(link, 24)
+	// link = listPushBack(link, 25)
+	// link = listPushBack(link, 54)
+	// PrintList(link)
 
-	// link = student.SortListInsert(link, 0)
-	link = student.SortListInsert(link, 33)
-	PrintList(link)
+	// // link = student.SortListInsert(link, 0)
+	// link = student.SortListInsert(link, 33)
+	// PrintList(link)
 
 	// var link *student.NodeI
 	// var link2 *student.NodeI
 
-	// link = listPushBack(link, 0)
+	// link = listPushBack(link, 2)
 	// link = listPushBack(link, 7)
 	// link = listPushBack(link, 39)
 	// link = listPushBack(link, 92)
@@ -36,21 +36,60 @@ func main() {
 	// link = listPushBack(link, 28)
 	// link = listPushBack(link, 64)
 
-	// link2 = listPushBack(link2, 80)
-	// link2 = listPushBack(link2, 23)
-	// link2 = listPushBack(link2, 27)
-	// link2 = listPushBack(link2, 30)
-	// link2 = listPushBack(link2, 85)
-	// link2 = listPushBack(link2, 81)
-	// link2 = listPushBack(link2, 75)
-	// link2 = listPushBack(link2, 70)
+	// link2 = listPushBack(link2, 2)
+	// link2 = listPushBack(link2, 2)
+	// link2 = listPushBack(link2, 4)
+	// link2 = listPushBack(link2, 9)
+	// link2 = listPushBack(link2, 12)
+	// link2 = listPushBack(link2, 12)
+	// link2 = listPushBack(link2, 19)
+	// link2 = listPushBack(link2, 20)
 	// // PrintList(link)
 	// // PrintList(link2)
 	// PrintList(student.SortedListMerge(link2, link))
+
+	link := &student.List{}
+	link2 := &student.List{}
+
+	fmt.Println("----normal state----")
+	//student.ListPushBack(link2, 1)
+	PrintList(link2)
+	student.ListRemoveIf(link2, 1)
+	fmt.Println("------answer-----")
+	PrintList(link2)
+	fmt.Println()
+
+	fmt.Println("----normal state----")
+	student.ListPushBack(link, 1)
+	student.ListPushBack(link, "Hello")
+	student.ListPushBack(link, 1)
+	student.ListPushBack(link, "There")
+	student.ListPushBack(link, 1)
+	student.ListPushBack(link, 1)
+	student.ListPushBack(link, "How")
+	student.ListPushBack(link, 1)
+	student.ListPushBack(link, "are")
+	student.ListPushBack(link, "you")
+	student.ListPushBack(link, 1)
+	PrintList(link)
+
+	student.ListRemoveIf(link, 1)
+	fmt.Println("------answer-----")
+	PrintList(link)
+
 }
 
-func PrintList(l *student.NodeI) {
-	it := l
+// func PrintList(l *student.NodeI) {
+// 	it := l
+// 	for it != nil {
+// 		fmt.Print(it.Data, " -> ")
+// 		it = it.Next
+// 	}
+// 	fmt.Print(nil, "\n")
+// }
+
+func PrintList(l *student.List) {
+	it := l.Head
 	for it != nil {
 		fmt.Print(it.Data, " -> ")
 		it = it.Next

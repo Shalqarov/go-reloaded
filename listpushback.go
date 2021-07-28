@@ -1,8 +1,7 @@
 package student
 
 type NodeL struct {
-	//Data interface{}
-	Data int
+	Data interface{}
 	Next *NodeL
 }
 
@@ -16,7 +15,7 @@ type NodeI struct {
 	Next *NodeI
 }
 
-func ListPushBack(l *List, data int) {
+func ListPushBack(l *List, data interface{}) {
 	if l.Head == nil {
 		l.Head = &NodeL{Data: data}
 	} else {
@@ -25,17 +24,5 @@ func ListPushBack(l *List, data int) {
 			temp = temp.Next
 		}
 		temp.Next = &NodeL{Data: data}
-	}
-}
-
-func ListPushBackN(l *NodeI, data int) {
-	if l == nil {
-		l = &NodeI{Data: data}
-	} else {
-		temp := l
-		for temp.Next != nil {
-			temp = temp.Next
-		}
-		temp.Next = &NodeI{Data: data}
 	}
 }
