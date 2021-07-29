@@ -5,11 +5,19 @@ func Split(s, sep string) []string {
 	lS := len(s)
 	lSep := len(sep)
 	step := 0
-	for i := 0; i+lSep < lS; i++ {
+	if sep == "" {
+		var char rune
+		for i := 0; i < lS; i++ {
+			char = rune(s[i])
+			splitted = append(splitted, string(char))
+		}
+		return splitted
+	}
+	for i := 0; i+lSep <= lS; i++ {
 		if s[i:i+lSep] == sep {
 			splitted = append(splitted, s[step:i])
 			step = i + lSep
-			i += lSep
+			i += lSep - 1
 		}
 	}
 	if sep != s[step:] {

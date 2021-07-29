@@ -19,7 +19,7 @@ func main() {
 			a = Atoi64(args[0])
 			b = Atoi64(args[2])
 			op := args[1]
-			if a == 0 && args[0] != "0" || b == 0 && args[2] != "0" {
+			if a == 0 && !isNull(args[0]) || b == 0 && !isNull(args[2]) {
 				z01.PrintRune('0')
 			} else {
 				switch op {
@@ -54,9 +54,7 @@ func main() {
 						} else {
 							res := itoa64(a * b)
 							lRes := len(res)
-							if (a > 0 && b > 0) && (a*b < a || a*b < b) {
-								z01.PrintRune('0')
-							} else if (a > 0 && b < 0) && (a*b < a || a*b < b) || (a < 0 && b > 0) && (a*b < a || a*b < b) {
+							if (a*b)/a != b {
 								z01.PrintRune('0')
 							} else {
 								for i := 0; i < lRes; i++ {
@@ -76,8 +74,12 @@ func main() {
 						} else {
 							res := itoa64(a / b)
 							lRes := len(res)
-							for i := 0; i < lRes; i++ {
-								z01.PrintRune(rune(res[i]))
+							if (a/b)*a != b {
+								z01.PrintRune('0')
+							} else {
+								for i := 0; i < lRes; i++ {
+									z01.PrintRune(rune(res[i]))
+								}
 							}
 						}
 					}
@@ -124,12 +126,22 @@ func isNum(s string) bool {
 	if s[0] == '-' {
 		start = 1
 	}
+	if s[0] == '+' {
+		start = 1
+	}
 	for i := start; i < lS; i++ {
 		if s[i] < '0' || s[i] > '9' {
 			return false
 		}
 	}
 	return true
+}
+
+func isNull(s string) bool {
+	if s == "0" || s == "-0" || s == "+0" {
+		return true
+	}
+	return false
 }
 
 func itoa64(n int64) string {
