@@ -1,5 +1,7 @@
 package student
 
+import "fmt"
+
 func Split(s, sep string) []string {
 	splitted := make([]string, 0)
 	lS := len(s)
@@ -17,6 +19,7 @@ func Split(s, sep string) []string {
 		if s[i:i+lSep] == sep {
 			splitted = append(splitted, s[step:i])
 			step = i + lSep
+			fmt.Println(step)
 			i += lSep - 1
 		}
 	}

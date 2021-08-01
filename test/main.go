@@ -1,20 +1,12 @@
 package main
 
 import (
+	"fmt"
+	"strings"
 	"student"
-
-	"github.com/01-edu/z01"
 )
 
 func main() {
-	student.PrintNbrBase(0, "0123456789")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(-125, "01")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(125, "0123456789ABCDEF")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(-125, "choumi")
-	z01.PrintRune('\n')
-	student.PrintNbrBase(125, "aa")
-	z01.PrintRune('\n')
+	fmt.Println(student.Split("HelloHAHowHAare you?HAHAHAA", "HA"))
+	fmt.Println(strings.Split("HelloHAHowHAare you?HAHAHAA", "HA"))
 }

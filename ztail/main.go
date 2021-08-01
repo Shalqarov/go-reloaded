@@ -1,54 +1,139 @@
 package main
 
-import "os"
+import (
+	"fmt"
+	"io"
+	"os"
+	"student"
+)
 
 func main() {
 	args := os.Args[1:]
 	argsSize := len(args)
-	if argsSize < 3 {
+	if argsSize == 0 {
+		io.Copy(os.Stdout, os.Stdin)
+	}
+	if argsSize < 2 {
 		os.Exit(0)
 	} else {
-		Carg := false
+		bytes := 0    // кол-во байт
+		plus := false //проверка на +
+		filenames := []string{}
 		for i := 0; i < argsSize; i++ {
-			if args[i] == "-c" {
-				Carg = true
-				if i+1 == argsSize {
+			if args[i] == "-c" && i+1 != argsSize {
+				if isNum(args[i+1]) {
+					if isPlus(args[i+1]) {
+						plus = true
+					} else {
+						plus = false
+					}
+					bytes = student.Atoi(args[i+1])
+					if bytes < 0 {
+						bytes *= -1
+					}
+					i++
+					continue
+				} else {
+					fmt.Printf("tail: invalid number of bytes: '%s'\n", args[i+1])
 					os.Exit(0)
 				}
 			}
-			if !Carg {
+			filenames = append(filenames, args[i])
+		}
+		//fmt.Println(filenames)	// проверяю правильно ли работает переменная (нужно удалить строку)
+		if len(filenames) == 1 {
+			file, err := os.Open(filenames[0])
+			if err != nil {
+				fmt.Printf("tail: cannot open '%s' for reading: No such file or directory\n", filenames[0])
 				os.Exit(0)
 			}
-		}
-	}
-}
+			fs, _ := file.Stat()
+			fileSize := fs.Size()
+			res := make([]byte, fileSize)
+			start := 0
+			if plus {
+				start = len(res) - (len(res) - bytes)
+			} else {
+				start = len(res) - bytes
+			}
+			if start < 0 {
+				start = 0
+			}
+			file.Read(res)
+			if plus {
+				start = start - 1
+				if start < 0 {
+					start = 0
+				}
+			}
+			fmt.Printf("%s", res[start:])
 
-func toInt(s string) int {
-	if s[0] == '+' || s[0] == '-' || s[0] >= '0' && s[0] <= '9' {
-		startIndex := 0
-		if s[0] == '+' || s[0] == '-' {
-			startIndex = 1
-		}
-		for i := startIndex; i < len(s); i++ {
-			if s[i] < '0' || s[i] > '9' {
-				return 0
+		} else {
+			prevErr := false
+			for _, s := range filenames {
+				file, err := os.Open(s)
+				if err != nil {
+					prevErr = true
+					fmt.Printf("tail: cannot open '%s' for reading: No such file or directory\n", s)
+					continue
+				}
+				fs, _ := file.Stat()
+				fileSize := fs.Size()
+				res := make([]byte, fileSize)
+				start := 0
+				if plus {
+					start = len(res) - (len(res) - bytes)
+				} else {
+					start = len(res) - bytes
+				}
+				if start < 0 {
+					start = 0
+				}
+				file.Read(res)
+				if plus {
+					start = start - 1
+					if start < 0 {
+						start = 0
+					}
+				}
+				if prevErr == true {
+					fmt.Printf("\n")
+					prevErr = false
+				}
+				fmt.Printf("==> %s <==\n%s", s, res[start:])
 			}
 		}
-		num := 0
-		for i := startIndex; i < len(s); i++ {
-			num = num*10 + int(rune(s[i]-48))
-		}
-		isNegative := false
-		if s[0] == '-' {
-			isNegative = true
-			num *= -1
-		}
-		if num > 0 && isNegative == true {
-			return 0
-		} else if num < 0 && isNegative == false {
-			return 0
-		}
-		return num
+
 	}
-	return 0
+
+}
+
+func isPlus(s string) bool {
+	if !isNum(s) {
+		return false
+	}
+	if s[0] == '+' {
+		return true
+	}
+	return false
+}
+
+func isNum(s string) bool {
+	if s == "" {
+		return false
+	}
+	lS := len(s)
+	start := 0
+	if s[0] == '-' {
+		start = 1
+	}
+	if s[0] == '+' {
+		start = 1
+	}
+	for i := start; i < lS; i++ {
+		if s[i] < '0' || s[i] > '9' {
+			return false
+		}
+	}
+	return true
 }
