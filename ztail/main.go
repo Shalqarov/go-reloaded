@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"os"
 	"student"
 )
@@ -11,9 +10,9 @@ func main() {
 	args := os.Args[1:]
 	argsSize := len(args)
 	if argsSize == 0 {
-		io.Copy(os.Stdout, os.Stdin)
+		os.Exit(0)
 	}
-	if argsSize < 2 {
+	if argsSize < 1 {
 		os.Exit(0)
 	} else {
 		bytes := 0    // кол-во байт
@@ -37,6 +36,9 @@ func main() {
 					fmt.Printf("tail: invalid number of bytes: '%s'\n", args[i+1])
 					os.Exit(0)
 				}
+			} else if args[i] == "-c" && i+1 == argsSize {
+				fmt.Printf("tail: option requires an argument -- 'c'\nTry 'tail --help' for more information\n")
+				os.Exit(0)
 			}
 			filenames = append(filenames, args[i])
 		}
@@ -58,6 +60,8 @@ func main() {
 			}
 			if start < 0 {
 				start = 0
+			} else if start >= len(res) {
+				start = 0
 			}
 			file.Read(res)
 			if plus {
@@ -70,10 +74,14 @@ func main() {
 
 		} else {
 			prevErr := false
-			for _, s := range filenames {
+			firstErr := false
+			for i, s := range filenames {
 				file, err := os.Open(s)
 				if err != nil {
 					prevErr = true
+					if i == 0 {
+						firstErr = true
+					}
 					fmt.Printf("tail: cannot open '%s' for reading: No such file or directory\n", s)
 					continue
 				}
@@ -96,11 +104,16 @@ func main() {
 						start = 0
 					}
 				}
-				if prevErr == true {
-					fmt.Printf("\n")
-					prevErr = false
+				if i > 0 {
+					if prevErr == true && !firstErr {
+						fmt.Printf("\n")
+						prevErr = false
+					}
+					fmt.Printf("==> %s <==\n%s", s, res[start:])
+				} else {
+					fmt.Printf("==> %s <==\n%s", s, res[start:])
 				}
-				fmt.Printf("==> %s <==\n%s", s, res[start:])
+				firstErr = false
 			}
 		}
 

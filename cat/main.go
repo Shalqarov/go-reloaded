@@ -18,7 +18,7 @@ func main() {
 			str, err := ioutil.ReadFile(args[i])
 			if err != nil {
 				printErr("ERROR: " + err.Error() + "\n")
-				os.Exit(1)
+				os.Exit(0)
 			}
 			printErr(string(str))
 		}

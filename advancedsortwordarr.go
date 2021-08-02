@@ -1,5 +1,7 @@
 package student
 
+import "strings"
+
 func AdvancedSortWordArr(a []string, f func(a, b string) int) {
 	strLen := len(a)
 	for i := 0; i < strLen; i++ {
@@ -11,11 +13,5 @@ func AdvancedSortWordArr(a []string, f func(a, b string) int) {
 	}
 }
 func Compare(a, b string) int {
-	if a > b {
-		return 1
-	} else if a < b {
-		return -1
-	} else {
-		return 0
-	}
+	return strings.Compare(b, a)
 }

@@ -72,8 +72,14 @@ func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
 	}
 	if node.Data < root.Data {
 		root.Left = BTreeDeleteNode(root.Left, node)
+		if root.Left != nil {
+			root.Left.Parent = root
+		}
 	} else if node.Data > root.Data {
 		root.Right = BTreeDeleteNode(root.Right, node)
+		if root.Right != nil {
+			root.Right.Parent = root
+		}
 	} else {
 		if root.Left == nil && root.Right == nil {
 			root = nil
@@ -85,6 +91,9 @@ func BTreeDeleteNode(root, node *TreeNode) *TreeNode {
 			temp := BTreeMin(root.Right)
 			root.Data = temp.Data
 			root.Right = BTreeDeleteNode(root.Right, temp)
+			if root.Right != nil {
+				root.Right.Parent = root
+			}
 		}
 	}
 	return root
@@ -153,14 +162,16 @@ func BTreeSearchItem(root *TreeNode, elem string) *TreeNode {
 }
 
 func BTreeTransplant(root, node, rplc *TreeNode) *TreeNode {
-	branch := BTreeSearchItem(root, node.Data).Parent
-	if branch == nil {
+	branch := BTreeSearchItem(root, node.Data)
+	if branch == nil || branch.Parent == nil {
 		return rplc
-	} else if node.Data < root.Data {
-		root.Left = rplc
-	} else {
-		root.Right = rplc
 	}
-	rplc.Parent = branch
+	parent := branch.Parent
+	if node.Data < parent.Data {
+		parent.Left = rplc
+	} else {
+		parent.Right = rplc
+	}
+	rplc.Parent = parent
 	return root
 }

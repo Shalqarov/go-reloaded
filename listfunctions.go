@@ -66,6 +66,9 @@ func ListPushFront(l *List, data int) {
 }
 
 func ListRemoveIf(l *List, data_ref interface{}) {
+	if l == nil {
+		return
+	}
 	if l.Head == nil {
 		return
 	}
@@ -74,18 +77,29 @@ func ListRemoveIf(l *List, data_ref interface{}) {
 			l.Head = l.Head.Next
 		}
 		if l.Head == nil {
+			l.Tail = nil
 			return
 		}
 	}
 	cur := l.Head.Next
 	prev := l.Head
 	for cur != nil {
+		if prev.Data == data_ref {
+			if l.Head.Data == data_ref && l.Head != nil {
+				l.Head = l.Head.Next
+			}
+			if l.Head == nil {
+				l.Tail = nil
+				return
+			}
+		}
 		if cur.Data == data_ref {
 			for cur != nil && cur.Data == data_ref {
 				cur = cur.Next
 			}
 			prev.Next = cur
 			if cur == nil {
+				l.Tail = prev
 				return
 			}
 		}
@@ -136,8 +150,15 @@ func SortedListMerge(n1 *NodeI, n2 *NodeI) *NodeI {
 	if n1 == nil && n2 == nil {
 		return nil
 	}
+	if n1 == nil {
+		return n2
+	} else if n2 == nil {
+		return n1
+	}
 	tail := FindTail(n1)
-	tail.Next = n2
+	if tail != nil {
+		tail.Next = n2
+	}
 	//sorting...
 	current := n1
 	temp := n1
