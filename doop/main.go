@@ -55,14 +55,15 @@ func main() {
 						if a == 0 || b == 0 {
 							z01.PrintRune('0')
 						} else {
-							res := itoa64(a * b)
-							lRes := len(res)
-							if (a*b)/a != b {
-								z01.PrintRune('0')
-							} else {
+							res := a * b
+							answer := itoa64(res)
+							lRes := len(answer)
+							if res/a == b || res/b == a {
 								for i := 0; i < lRes; i++ {
-									z01.PrintRune(rune(res[i]))
+									z01.PrintRune(rune(answer[i]))
 								}
+							} else {
+								z01.PrintRune('0')
 							}
 						}
 					}
@@ -75,13 +76,15 @@ func main() {
 								z01.PrintRune(rune(err[i]))
 							}
 						} else {
-							res := itoa64(a / b)
-							lRes := len(res)
-							if (a/b)*a != b {
+							res := a / b
+							answer := itoa64(res)
+							lRes := len(answer)
+							if a < 0 && b < 0 && res < 0 {
 								z01.PrintRune('0')
+
 							} else {
 								for i := 0; i < lRes; i++ {
-									z01.PrintRune(rune(res[i]))
+									z01.PrintRune(rune(answer[i]))
 								}
 							}
 						}
