@@ -116,9 +116,7 @@ func main() {
 				firstErr = false
 			}
 		}
-
 	}
-
 }
 
 func isPlus(s string) bool {

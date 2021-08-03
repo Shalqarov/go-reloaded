@@ -25,26 +25,29 @@ func main() {
 				switch op {
 				case "+":
 					{
-						if a > 0 && b > 0 && a+b < 0 {
-							z01.PrintRune('0')
-						} else {
-							res := itoa64(a + b)
-							lRes := len(res)
+						res := a + b
+						if b >= 0 && res >= a || b < 0 && res < a {
+							answer := itoa64(res)
+							lRes := len(answer)
 							for i := 0; i < lRes; i++ {
-								z01.PrintRune(rune(res[i]))
+								z01.PrintRune(rune(answer[i]))
 							}
+						} else {
+							z01.PrintRune('0')
 						}
 					}
 				case "-":
 					{
-						if a < 0 && b < 0 && a-b > 0 {
-							z01.PrintRune('0')
-						} else {
-							res := itoa64(a - b)
-							lRes := len(res)
+						res := a - b
+						if b >= 0 && res <= a || b < 0 && res > a {
+							answer := itoa64(res)
+							lRes := len(answer)
 							for i := 0; i < lRes; i++ {
-								z01.PrintRune(rune(res[i]))
+								z01.PrintRune(rune(answer[i]))
 							}
+
+						} else {
+							z01.PrintRune('0')
 						}
 					}
 				case "*":
@@ -153,6 +156,9 @@ func isNull(s string) bool {
 func itoa64(n int64) string {
 	if n == 0 {
 		return "0"
+	}
+	if n == -9223372036854775808 {
+		return "-9223372036854775808"
 	}
 	isNegative := false
 	s := []rune{}
