@@ -133,12 +133,10 @@ func Atoi(s string) int64 {
 	if s1[0] == '-' {
 		res = -res
 	}
-
 	if (s1[0] == '+' || (s1[0] >= '0' && s1[0] <= '9')) && res < 0 {
 		return 9223372036854775807
 	} else if s1[0] == '-' && res > 0 {
 		return -9223372036854775808
 	}
-
 	return res
 }
